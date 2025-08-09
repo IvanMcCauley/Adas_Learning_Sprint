@@ -1,0 +1,19 @@
+# C/C++
+*.o
+*.a
+*.so
+/build/
+/cmake-build-*/
+a.out
+*.exe
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
