@@ -1,12 +1,4 @@
-# Dev Commands – Git + Ubuntu Quick Reference
 
-## 🌱 Basic Linux / Ubuntu Commands
-```
-pwd                     # Show current directory
-ls                      # List files in directory
-cd folder_name          # Change directory
-cd ~                    # Go to home directory
-mkdir folder_name       # Create a new folder
 rm file.txt             # Delete a file
 rm -r folder_name       # Delete a folder (recursive)
 clear                   # Clear terminal
