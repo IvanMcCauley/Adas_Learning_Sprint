@@ -12,6 +12,7 @@ rm -r folder_name       # Delete a folder (recursive)
 clear                   # Clear terminal
 ```
 
+
 ## 💻 VS Code with WSL
 ```
 code .                  # Open current folder in VS Code (with Remote-WSL)
@@ -23,11 +24,14 @@ sudo apt update         # Update package list
 sudo apt install name   # Install a package
 ```
 
+
 ## 🔧 Git Setup (One-time)
 ```
 git config --global user.name "Your Name"
 git config --global user.email "your@email.com"
 ```
+
+
 
 ## 📂 Git Basics
 ```
@@ -41,6 +45,8 @@ git push                          # Push to remote repo
 git pull                          # Pull latest from remote
 ```
 
+
+
 ## 🌿 Branching
 ```
 git branch                        # List branches
@@ -48,6 +54,7 @@ git checkout -b new_branch        # Create + switch to new branch
 git checkout branch_name          # Switch branch
 git merge branch_name             # Merge branch into current
 ```
+
 
 ## 🚑 Common Fixes
 ```
