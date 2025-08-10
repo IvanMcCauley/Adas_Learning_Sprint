@@ -26,7 +26,12 @@ This sprint is part of a larger plan to become an **independent, high-leverage A
 - Started PID controller summary in notes/control.md
 
 
-
+Day 2 - Physics Refresh & C++ Wor
+- Reviewed key physics concepts for vehicle dynamics and control theory.
+- Verified C++ environment setup (Linux toolchain + VS Code integration).
+- Compiled and ran first test program to confirm toolchain functionality.
+- Configured VS Code debugger for step-by-step execution.
+- Maintained organized folder structure (`Week1/day2_cpp`) for ongoing C++ exercises.
 
 
 
