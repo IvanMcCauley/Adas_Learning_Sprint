@@ -31,9 +31,8 @@
 - P: reacts to current error.  
 - I: fixes long-term small error.  
 - D: slows down changes, reduces overshoot.
-- Example: Cruise control — P adds throttle, I fixes small persistent gap, D prevents overshoot.
+- Example: Cruise control - P adds throttle, I fixes small persistent gap, D prevents overshoot.
 
-```
 +-----------+
 | Setpoint |
 +-----------+
@@ -48,4 +47,3 @@ v
 +-----------+ +---------+
 | Feedback |<------| Output |
 +-----------+ +---------+
-```
