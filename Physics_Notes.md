@@ -32,3 +32,20 @@
 - I: fixes long-term small error.  
 - D: slows down changes, reduces overshoot.
 - Example: Cruise control — P adds throttle, I fixes small persistent gap, D prevents overshoot.
+
+```
++-----------+
+| Setpoint |
++-----------+
+|
+v
++-----------+ +---------+
+| Controller|-----> | Plant |
+| (PID) | | (Car) |
++-----------+ +---------+
+^ |
+| v
++-----------+ +---------+
+| Feedback |<------| Output |
++-----------+ +---------+
+```
