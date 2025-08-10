@@ -2,7 +2,7 @@
 
 This repository tracks my personal upskilling sprint focused on mastering Python and C++ for real-world autonomous systems.
 
-I’m a Mechatronic Engineering graduate with hands-on project experience — including YOLOv8 detection, BEV transformation, and A* path planning — and I’m now deepening my low-level programming expertise to meet the demands of ADAS, robotics, and autonomous vehicle engineering roles.
+I’m a Mechatronic Engineering graduate with hands-on project experience, including YOLOv8 detection, BEV transformation, and A* path planning, and I’m now deepening my low-level programming expertise to meet the demands of ADAS, robotics, and autonomous vehicle engineering roles.
 
 To close this gap and become fully job-ready for high-impact engineering positions, I’m using this repo to:
 
