@@ -1,0 +1,10 @@
+# build artifacts
+*.o
+*.obj
+*.exe
+*.out
+a.out
+.vscode/
+build/
+
+# put all compiled binaries in build/ going forward
