@@ -16,6 +16,9 @@ int main(){
     cout << "Sum = " << sum << "\n";
     cout << "Max: " << maxv << "\n";
     
+    double avg = static_cast<double>(sum)/5;
+    cout << "Avg = " << avg << "\n";
+
     return 0;
 
 }    
