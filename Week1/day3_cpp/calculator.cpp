@@ -9,6 +9,13 @@ int main(){
     while (again == 'y' || again == 'Y'){
         cout << "Enter a number, an operand and a number ";
         cin >> a >> op >> b;
+        if (!(cin >> a >> op >> b)){
+              cout << "Input error - expected: number op number\n";
+              cin.clear();
+              cin.ignore(1000, '\n');
+              continue;
+         }
+
         double result = 0.0;
         bool ok = true;
         switch (op){
