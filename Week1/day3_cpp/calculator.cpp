@@ -8,7 +8,6 @@ int main(){
     char again = 'y';
     while (again == 'y' || again == 'Y'){
         cout << "Enter a number, an operand and a number ";
-        cin >> a >> op >> b;
         if (!(cin >> a >> op >> b)){
               cout << "Input error - expected: number op number\n";
               cin.clear();
