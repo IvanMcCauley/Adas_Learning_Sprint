@@ -1,22 +1,20 @@
 # Coding Sprint: Closing the Gap for ADAS & Autonomy Roles 🚗💻
 
-This repository tracks my personal upskilling sprint focused on mastering Python and C++ for real-world autonomous systems.
+This repository tracks my coding sprint to close the gap between my current skills and what’s needed for real-world ADAS and autonomous systems work.
 
-I’m a Mechatronic Engineering graduate with hands-on project experience, including YOLOv8 detection, BEV transformation, and A* path planning, and I’m now deepening my low-level programming expertise to meet the demands of ADAS, robotics, and autonomous vehicle engineering roles.
+I’m a Mechatronic Engineering graduate with project experience in YOLOv8 detection, BEV transformation, and A* path planning. Now I’m focusing on building deeper fluency in C++ and Python to meet the demands of embedded systems, planning, and perception roles in autonomy.
 
-To close this gap and become fully job-ready for high-impact engineering positions, I’m using this repo to:
+The repo is where I:
+- ✅ Practice critical programming skills in C++ and Python  
+- ✅ Rebuild core math/control foundations for robotics  
+- ✅ Complete focused micro-projects tied to planning, perception, and control  
+- ✅ Track progress day-by-day 
+- ✅ Build tangible fluency through hands-on code  
 
-- ✅ Practice critical programming skills in C++ and Python
-- ✅ Rebuild core math/control foundations for robotics
-- ✅ Complete focused micro-projects tied to planning, perception, and control
-- ✅ Log daily/weekly progress with full transparency (`log.md`)
-- ✅ Build tangible fluency through hands-on code
+🔍 **Focus areas**: C++ fundamentals, embedded logic, Python simulation, A*, PID, ROS 2, and real-time decision-making.  
 
-This sprint is part of a larger plan to become an **independent, high-leverage AV engineer** - fluent in the full autonomy stack and able to contribute meaningfully to mission-critical systems.
+📌 Updated frequently — each day’s work is logged and visible here.
 
-🔍 **Focus areas**: C++ fundamentals, embedded logic, Python simulation, A*, PID, ROS 2 (soon), and real-time decision-making.
-
-📌 Updated frequently. Reflects learning milestones.
 
 ## Day 1 - Environment Setup + Core Math Refresh
 
