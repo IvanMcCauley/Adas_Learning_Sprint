@@ -38,7 +38,6 @@ This sprint is part of a larger plan to become an **independent, high-leverage A
 - Implemented: basics, I/O, conditions, loops (for/while/do-while), arrays, calculator
 - Key skills: `cin` validation, `switch`, edge cases, `-Wall -Wextra`
 - Code: `Week1/day3_cpp/*`
-- Next: functions/headers, `std::vector`, `<algorithm>`, CMake
 
 ## Day 4 — C++ Memory Safety & References
 - Practiced pointers (`*`, `&`) and how they let you modify variables through addresses  
