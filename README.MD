@@ -18,7 +18,7 @@ This sprint is part of a larger plan to become an **independent, high-leverage A
 
 📌 Updated frequently. Reflects learning milestones.
 
-## Day 1 – Environment Setup + Core Math Refresh
+## Day 1 - Environment Setup + Core Math Refresh
 
 - Set up Python, C++, Git, VS Code, Linux (WSL2)
 - Wrote some basic python and C++ scripts to get warmed up
@@ -34,18 +34,18 @@ This sprint is part of a larger plan to become an **independent, high-leverage A
 - Maintained organized folder structure (`Week1/day2_cpp`) for ongoing C++ exercises.
 
 
-## Day 3 — C++
+## Day 3 - C++
 - Implemented: basics, I/O, conditions, loops (for/while/do-while), arrays, calculator
 - Key skills: `cin` validation, `switch`, edge cases, `-Wall -Wextra`
 - Code: `Week1/day3_cpp/*`
 
-## Day 4 — C++ Memory Safety & References
+## Day 4 - C++ Memory Safety & References
 - Practiced pointers (`*`, `&`) and how they let you modify variables through addresses  
 - Compared pass-by-pointer vs pass-by-reference in functions  
 - Implemented simple dynamic allocation with `new` / `delete`  
 - Used `std::vector` as a safer alternative to raw arrays  
 - Wrote a small `element_at()` function returning by reference  
-- Key takeaway: clearer picture of how C++ manages memory — foundation for safe embedded/ADAS code
+- Key takeaway: clearer picture of how C++ manages memory - foundation for safe embedded/ADAS code
 - Code: `day4_safety/src/*`
 
 
