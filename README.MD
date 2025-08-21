@@ -40,5 +40,13 @@ This sprint is part of a larger plan to become an **independent, high-leverage A
 - Code: `Week1/day3_cpp/*`
 - Next: functions/headers, `std::vector`, `<algorithm>`, CMake
 
+## Day 4 — C++ Memory Safety & References
+- Practiced pointers (`*`, `&`) and how they let you modify variables through addresses  
+- Compared pass-by-pointer vs pass-by-reference in functions  
+- Implemented simple dynamic allocation with `new` / `delete`  
+- Used `std::vector` as a safer alternative to raw arrays  
+- Wrote a small `element_at()` function returning by reference  
+- Key takeaway: clearer picture of how C++ manages memory — foundation for safe embedded/ADAS code
+- Code: `day4_safety/src/*`
 
 
