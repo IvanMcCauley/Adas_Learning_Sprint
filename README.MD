@@ -37,13 +37,19 @@ The repo is where I:
 - Key skills: `cin` validation, `switch`, edge cases, `-Wall -Wextra`
 - Code: `Week1/day3_cpp/*`
 
-## Day 4 - C++ Memory Safety & References
+## Day 4 – C++ Memory Safety & References
 - Practiced pointers (`*`, `&`) and how they let you modify variables through addresses  
 - Compared pass-by-pointer vs pass-by-reference in functions  
-- Implemented simple dynamic allocation with `new` / `delete`  
-- Used `std::vector` as a safer alternative to raw arrays  
+- Tried dynamic allocation with `new` / `delete`  
+- Looked at `std::vector` as a safer alternative to raw arrays  
 - Wrote a small `element_at()` function returning by reference  
-- Key takeaway: clearer picture of how C++ manages memory - foundation for safe embedded/ADAS code
+- Checked a few memory pitfalls:
+  - dangling pointer (`2_6_dangling.cpp`) → undefined behavior  
+  - double delete (`2_6_double_delete.cpp`) → undefined behavior  
+  - return by value (`2_6a_return_value.cpp`) → safe fix  
+  - dynamic vectors / return dataset (`2_7_*.cpp`) → safe, idiomatic  
+- **Key takeaway**: better feel for what’s safe vs unsafe in C++ memory handling.  
 - Code: `day4_safety/src/*`
+
 
 
