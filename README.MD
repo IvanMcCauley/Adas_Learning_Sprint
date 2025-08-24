@@ -37,19 +37,16 @@ The repo is where I:
 - Key skills: `cin` validation, `switch`, edge cases, `-Wall -Wextra`
 - Code: `Week1/day3_cpp/*`
 
-## Day 4 – C++ Memory Safety & References
-- Practiced pointers (`*`, `&`) and how they let you modify variables through addresses  
-- Compared pass-by-pointer vs pass-by-reference in functions  
-- Tried dynamic allocation with `new` / `delete`  
-- Looked at `std::vector` as a safer alternative to raw arrays  
-- Wrote a small `element_at()` function returning by reference  
-- Checked a few memory pitfalls:
-  - dangling pointer (`2_6_dangling.cpp`) → undefined behavior  
-  - double delete (`2_6_double_delete.cpp`) → undefined behavior  
-  - return by value (`2_6a_return_value.cpp`) → safe fix  
-  - dynamic vectors / return dataset (`2_7_*.cpp`) → safe, idiomatic  
-- **Key takeaway**: better feel for what’s safe vs unsafe in C++ memory handling.  
-- Code: `day4_safety/src/*`
+## Day 4 – C++ Memory Safety & Const
+- Pointers & references basics (`pointers_refs.cpp`)  
+- Pass-by-pointer vs pass-by-reference (`2_4a`, `2_4b`)  
+- Return by reference (`2_5_return_by_ref.cpp`)  
+- Dynamic allocation with `new`/`delete` (`dynamic.cpp`, `dynamic_array.cpp`)  
+- `std::vector` basics + dataset return (`vector_basic.cpp`, `2_7_*.cpp`)  
+- Memory pitfalls: dangling pointer, double delete (`2_6_*`)  
+- Safe fixes: return by value, vectors  
+- Const correctness: const params, const pointers, const member fns (`3_*.cpp`)  
+- Capstone: ADAS-style braking/reaction distance + `needs_brake()` (`safety.cpp`)  
 
 
 
