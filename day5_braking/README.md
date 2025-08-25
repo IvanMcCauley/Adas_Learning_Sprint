@@ -19,6 +19,7 @@ make
 ```
 cd build
 ./brake_cli
+./brake_cli --margin 0.20   # use a 20% safety margin, or can change to any value you prefer
 ```
 ## Run tests (assert-based)
 ```
