@@ -54,5 +54,10 @@ The repo is where I:
 - Run: `cd day5_braking && mkdir -p build && cd build && cmake .. && make && ./brake_cli && ./braking_tests`
 - Docs: see `day5_braking/README.md`.
 
+## Day 6 – C++ modularity II (tests + margin)
+- Added `--margin` flag to CLI; extra margin tests; optional strict build (`-Werror`).
+- Run: `cd day5_braking/build && cmake -DBRK_STRICT=ON .. && make && ./brake_cli --margin 0.2 && ./braking_tests`
+
+
 
 
