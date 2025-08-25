@@ -46,7 +46,13 @@ The repo is where I:
 - Memory pitfalls: dangling pointer, double delete (`2_6_*`)  
 - Safe fixes: return by value, vectors  
 - Const correctness: const params, const pointers, const member fns (`3_*.cpp`)  
-- Capstone: ADAS-style braking/reaction distance + `needs_brake()` (`safety.cpp`)  
+- Capstone: ADAS-style braking/reaction distance + `needs_brake()` (`safety.cpp`) 
+
+## Day 5 - C++ modularity (braking_decision_lib)
+- Built `day5_braking/`: library + CLI + tiny tests from Day 4 `safety.cpp`.
+- Practiced: headers vs sources, default 10% margin, `assert` guards, CMake lib/exe.
+- Run: `cd day5_braking && mkdir -p build && cd build && cmake .. && make && ./brake_cli && ./braking_tests`
+- Docs: see `day5_braking/README.md`.
 
 
 
