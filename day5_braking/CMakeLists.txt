@@ -18,9 +18,17 @@ target_link_libraries(brake_cli PRIVATE braking)
 add_executable(braking_tests tests/test_braking.cpp)
 target_link_libraries(braking_tests PRIVATE braking)
 
-# Warnings
+# Warnings (GNU/Clang) + optional -Werror
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-  target_compile_options(braking PRIVATE -Wall -Wextra)
-  target_compile_options(brake_cli PRIVATE -Wall -Wextra)
-  target_compile_options(braking_tests PRIVATE -Wall -Wextra)
+  set(COMMON_WARNINGS -Wall -Wextra)
+  target_compile_options(braking PRIVATE ${COMMON_WARNINGS})
+  target_compile_options(brake_cli PRIVATE ${COMMON_WARNINGS})
+  target_compile_options(braking_tests PRIVATE ${COMMON_WARNINGS})
+
+  option(BRK_STRICT "Treat warnings as errors" OFF)
+  if (BRK_STRICT)
+    target_compile_options(braking PRIVATE -Werror)
+    target_compile_options(brake_cli PRIVATE -Werror)
+    target_compile_options(braking_tests PRIVATE -Werror)
+  endif()
 endif()
