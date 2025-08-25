@@ -4,9 +4,10 @@ Tiny C++17 library + CLI for basic longitudinal safety checks (SI units).
 Focus: reaction distance, brake distance, and a simple “brake now?” decision.
 
 ## Equations (SI)
-- Reaction distance: \( d_r = v \cdot t_r \)  (m)
-- Brake distance (const decel): \( d_b = \frac{v^2}{2a} \)  (m), \(a>0\)
-- Decision with margin \(m\): brake if \( (d_r + d_b)(1+m) \ge D_{\text{obs}} \)
+- Reaction distance: $d_r = v \cdot t_r$ (m)
+- Brake distance (const decel): $d_b = \frac{v^2}{2a}$ (m), $a > 0$
+- Decision with margin $m$: brake if $(d_r + d_b)(1+m) \ge D_{\text{obs}}$
+
 
 ## Build
 ```
