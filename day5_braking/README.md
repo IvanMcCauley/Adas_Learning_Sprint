@@ -14,11 +14,18 @@ Focus: reaction distance, brake distance, and a simple “brake now?” decision
 ## Layout
 ```
 day5_braking/
-include/braking/braking.hpp # declarations (free fns + class)
-src/braking.cpp # definitions + input asserts
-app/brake_cli.cpp # interactive CLI (supports --margin)
-tests/test_braking.cpp # tiny assert-based tests
-CMakeLists.txt
+├── include/
+│   └── braking/
+│       └── braking.hpp          # declarations (free fns + class)
+├── src/
+│   └── braking.cpp              # definitions + input asserts
+├── app/
+│   └── brake_cli.cpp            # interactive CLI (supports --margin)
+├── tests/
+│   └── test_braking.cpp         # tiny assert-based tests
+├── CMakeLists.txt
+└── README.md
+
 ```
 ## Build
 From this folder:
