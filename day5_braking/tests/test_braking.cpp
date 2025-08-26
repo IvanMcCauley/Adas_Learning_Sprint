@@ -24,5 +24,18 @@ int main() {
     assert(needs_brake(60.0, 20.0, 1.0, 5.0, 0.00) == true);  // 60 >= 60
     assert(needs_brake(70.0, 20.0, 1.0, 5.0, 0.20) == true);  // 60*1.2=72 >= 70
     assert(needs_brake(73.0, 20.0, 1.0, 5.0, 0.20) == false); // 72 < 73 
+
+    // ---- BrakingDecision class basic checks ----
+    {
+        BrakingDecision bd(1.0, 5.0, 0.10); // t=1s, a=5, m=10%
+
+        assert(bd.reaction_distance(20.0) == 20.0);     // 20*1
+        assert(bd.compute_brake_distance(20.0) == 40.0);// 400/(2*5)
+        assert(bd.total_distance(20.0) == 60.0);
+
+        // margin: 60 * 1.10 = 66
+        assert(bd.needs_brake(60.0, 20.0) == true);     // 60 >= 60
+        assert(bd.needs_brake(67.0, 20.0) == false);    // 66 < 67
+    }
     return 0;
 }

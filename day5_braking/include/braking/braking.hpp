@@ -29,4 +29,32 @@ bool needs_brake(double distance_to_obstacle,
                  double decel, 
                  double safety_margin = 0.10);
 
+ // ---------------------------------------------------------------------------
+ // Class version (pure value type). Stores policy parameters and
+ // offers const member functions. SI units througout
+ //   reaction_time (s) >= 0 
+ //   decel (m/s^2) > 0 [magnitude]
+ //   safety_margin (fraction) >= 0 e.g., 0.10 =10%
+ class BrakingDecision{
+    public: BrakingDecision(double reaction_time, 
+                            double decel, 
+                            double safety_margin = 10);
 
+    // Accesssors (noexcept = promise no throw)
+    double reaction_time() const noexcept { return reaction_time_; }
+    double decel()         const noexcept { return decel_; }
+    double safety_margin() const noexcept {return safety_margin_; }
+    
+    // Member computations (const = dont modify the object)
+    double reaction_distance(double speed) const;       // m
+    double compute_brake_distance(double speed) const;  // m
+    double total_distance(double speed) const;          // m 
+    bool needs_brake(double distance_to_obstacle, 
+                     double speed) const;          // decision
+    
+    private:
+        double reaction_time_;  // s
+        double decel_;          // m/s^2 (positive magnitude)
+        double safety_margin_;  // fraction (e.g., 0.10)
+
+ };
