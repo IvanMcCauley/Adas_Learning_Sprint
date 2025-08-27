@@ -64,4 +64,6 @@ Added `--csv` mode to the braking CLI; learned file I/O (`ifstream`), line/token
 ## Day 9 
 Added input clamping/validation to the braking CLI (interactive + `--csv`), and a tiny benchmark (~14.6 ns/op over 1e6 evals on WSL2, g++ -O3 -DNDEBUG).
 
+## Day 10 — Packaging & polish
+Added MIT license, install rules (CMake), local install layout, and tagged v0.1.0. All CSV tests green.
 
