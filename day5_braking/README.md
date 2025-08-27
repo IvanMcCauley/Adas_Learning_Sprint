@@ -133,6 +133,25 @@ bool brake = bd.needs_brake(70.0, 20.0); // D=70 m, v=20 m/s
 - speed >= 0, distance_to_obstacle >= 0
 - Contracts are enforced with assert(...) in Debug builds (they terminate on violation).
 
+## Input validation & clamping
+Interactive CLI and `--csv` mode enforce simple, safe input rules:
+- `speed < 0`, `reaction_time < 0`, `distance_to_obstacle < 0` → clamped to `0` (warning printed).
+- `decel <= 0` → invalid: interactive mode exits with an error; CSV mode skips the row.
+
+## Micro-benchmark
+A tiny benchmark (`bench/bench_braking.cpp`) times ~1e6 evaluations using `std::chrono`.
+
+Build & run:
+```
+cd build && cmake .. && make -j bench_braking && ./bench_braking
+```
+Example result (WSL2, g++ -O3 -DNDEBUG):
+```
+Iterations: 1000000
+Total time: 14570 us
+Avg:        14.57 ns/iter
+```
+
 ## Notes
 - Headers declare, sources define. You include the header; CMake builds the library and links definitions.
 - CLI prints with fixed decimals; --margin is optional and validated (≥0).
