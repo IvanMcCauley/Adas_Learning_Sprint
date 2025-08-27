@@ -1,0 +1,5 @@
+# speed,reaction_time,decel,obstacle_distance
+speed,reaction_time,decel,obstacle_distance
+20,1.5,8,60
+25,1.0,5,70
+15,2.0,6,30

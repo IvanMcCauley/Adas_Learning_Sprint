@@ -45,6 +45,29 @@ Custom margin (e.g., 20%):
 ```
 ./brake_cli --margin 0.20
 ```
+### CSV mode:
+Read rows from a CSV file: `speed,reaction_time,decel,obstacle_distance` and output decisions.
+
+Example:
+```
+./brake_cli --csv ./play/data.csv
+./brake_cli --csv ./play/data.csv --margin 0.15
+```
+Input CSV (first non-comment line is treated as a header):
+```
+# speed,reaction_time,decel,obstacle_distance
+speed,reaction_time,decel,obstacle_distance
+20,1.5,8,60
+25,1.0,5,70
+15,2.0,6,30
+```
+Output:
+```
+speed,reaction_time,decel,obstacle_distance,decision
+20,1.5,8,60,BRAKE
+25,1,5,70,BRAKE
+15,2,6,30,BRAKE
+```
 
 ## Example Session
 ```
