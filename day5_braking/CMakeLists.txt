@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(braking_decision_lib LANGUAGES CXX)
+project(braking_decision_lib VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -39,3 +39,17 @@ target_include_directories(bench_braking PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/inc
 target_link_libraries(bench_braking PRIVATE braking)
 # Strong optimization for bench; NDEBUG removes asserts
 target_compile_options(bench_braking PRIVATE -O3 -DNDEBUG)
+
+# ---- Install rules ----
+include(GNUInstallDirs)
+
+install(TARGETS braking brake_cli
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/braking
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+# Export compile_commands for tooling if desired
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
