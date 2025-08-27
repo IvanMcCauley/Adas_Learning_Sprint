@@ -15,6 +15,8 @@ The repo is where I:
 
 📌 Updated frequently — each day’s work is logged and visible here.
 
+# Projects 
+[braking_decision_lib](https://github.com/IvanMcCauley/braking_decision_lib) - C++17 lib + CLI, CSV mode, tests, micro-benchmark.
 
 ## Day 1 - Environment Setup + Core Math Refresh
 
@@ -66,4 +68,5 @@ Added input clamping/validation to the braking CLI (interactive + `--csv`), and 
 
 ## Day 10 — Packaging & polish
 Added MIT license, install rules (CMake), local install layout, and tagged v0.1.0. All CSV tests green.
+
 
