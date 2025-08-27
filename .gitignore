@@ -17,3 +17,8 @@ venv/
 
 # VS Code
 .vscode/
+build/
+play/
+*.o
+*.a
+compile_commands.json
