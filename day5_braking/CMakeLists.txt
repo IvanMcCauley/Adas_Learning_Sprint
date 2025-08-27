@@ -32,3 +32,10 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     target_compile_options(braking_tests PRIVATE -Werror)
   endif()
 endif()
+
+# ---- Optional benchmark (build with: make bench_braking) ----
+add_executable(bench_braking bench/bench_braking.cpp)
+target_include_directories(bench_braking PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(bench_braking PRIVATE braking)
+# Strong optimization for bench; NDEBUG removes asserts
+target_compile_options(bench_braking PRIVATE -O3 -DNDEBUG)

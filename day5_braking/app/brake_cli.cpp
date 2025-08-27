@@ -45,6 +45,24 @@ static int process_csv(const std::string& path, double margin) {
             double reaction_time = std::stod(b);
             double decel         = std::stod(c);
             double distance      = std::stod(d);
+            
+        // ---- input clamping & validation (CSV row) ----
+        if (speed < 0.0) {
+        std::cerr << "Warning(row): speed < 0 -> clamped to 0\n";
+        speed = 0.0;
+        }
+        if (reaction_time < 0.0) {
+            std::cerr << "Warning(row): reaction_time < 0 -> clamped to 0\n";
+            reaction_time = 0.0;
+        }
+        if (distance < 0.0) {
+            std::cerr << "Warning(row): obstacle distance < 0 -> clamped to 0\n";
+            distance = 0.0;
+        }
+        if (decel <= 0.0) {
+            std::cerr << "Warning(row): decel must be > 0, skipping row\n";
+            continue;  // skip invalid row
+        }
 
             bool brake = needs_brake(distance, speed, reaction_time, decel, margin);
 
@@ -116,6 +134,36 @@ int main(int argc, char* argv[]) {
     if (!(std::cin >> distance_to_obs)) return 1;       // distance to obstacle input
 
     std::cout << std::fixed << std::setprecision(3);
+
+    // ---- input clamping & validation (interactive) ----
+    // Clamp obviously-wrong-but-fixable valies
+    if(speed < 0.0){
+        std::cerr << "Warning: speed < 0 -> clamped to 0\n";
+        speed = 0.0;
+    }
+    if (reaction_time < 0.0){
+        std::cerr << "Warning: reaction_time < 0 -> clamped to 0\n";
+        reaction_time = 0;
+    }
+    if (distance_to_obs < 0.0){
+        std::cerr << "Warning: obstacle distance < 0 -> clamped to 0\n";
+        distance_to_obs = 0;
+    }
+    // Hard error: decel must be strictly positive (it's a magnitude)
+    if (decel <= 0.0){
+        std::cerr << "Error: decel must be > 0 (m/s^2)\n";
+        return 2;
+    }
+
+
+
+
+
+
+
+
+
+
 
     // Calculations using the above inputs and predefined functions
     double d_react = reaction_distance(speed, reaction_time);
