@@ -61,5 +61,7 @@ The repo is where I:
 ## Day 8 - CSV I/O
 Added `--csv` mode to the braking CLI; learned file I/O (`ifstream`), line/token parsing (`getline`, `stringstream`), and safe number conversion (`stod`). Added tiny fixtures + a shell test that diffs expected vs actual output.
 
+## Day 9 
+Added input clamping/validation to the braking CLI (interactive + `--csv`), and a tiny benchmark (~14.6 ns/op over 1e6 evals on WSL2, g++ -O3 -DNDEBUG).
 
 
