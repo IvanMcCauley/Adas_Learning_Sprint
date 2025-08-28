@@ -69,4 +69,8 @@ Added input clamping/validation to the braking CLI (interactive + `--csv`), and 
 ## Day 10 — Packaging & polish
 Added MIT license, install rules (CMake), local install layout, and tagged v0.1.0. All CSV tests green.
 
+---
+
+## ### Day 11 - ROS 2 setup
+Installed ROS 2 Humble (ros-base) on WSL2, created `~/ros2_ws` colcon workspace, and scaffolded first package `ros2_brake_decider`. Verified build and discovery (`ros2 pkg list`).
 
