@@ -76,7 +76,7 @@ Installed ROS 2 Humble (ros-base) on WSL2, created `~/ros2_ws` colcon workspace,
 - **Reflection:**  Before today i was pretty much new to ROS, I learned that ROS 2 isn’t an “app,” but a framework where you build small programs called *nodes* that talk over *topics* (data streams) and use *parameters* for config. My `ros2_brake_decider` will be one such node, listening to speed + distance topics and publishing a brake command.
 **System view:** In ROS 2, sensor nodes publish `/ego_speed` and `/obstacle_distance`, and my `ros2_brake_decider` node will subscribe, run the braking math, and publish a `/brake_cmd` decision.
 
-**Day 12 – First real ROS 2 parameters**
+## Day 12 – First real ROS 2 parameters
 - Started by figuring out why nodes are usually written as classes. Realized it’s so they can actually hold state (like params, callbacks, timers) instead of cramming everything into `main()`.
 - Declared my first parameters (`reaction_time`, `decel`, `safety_margin`) with defaults and learned how to read them at startup.
 - Found out the hard way that parameters don’t update on their own → had to learn about `add_on_set_parameters_callback`.
