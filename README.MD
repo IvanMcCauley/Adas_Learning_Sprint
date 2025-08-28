@@ -73,4 +73,7 @@ Added MIT license, install rules (CMake), local install layout, and tagged v0.1.
 
 ## ### Day 11 - ROS 2 setup
 Installed ROS 2 Humble (ros-base) on WSL2, created `~/ros2_ws` colcon workspace, and scaffolded first package `ros2_brake_decider`. Verified build and discovery (`ros2 pkg list`).
+- **Reflection:**  Before today i was pretty much new to ROS, I learned that ROS 2 isn’t an “app,” but a framework where you build small programs called *nodes* that talk over *topics* (data streams) and use *parameters* for config. My `ros2_brake_decider` will be one such node, listening to speed + distance topics and publishing a brake command.
+**System view:** In ROS 2, sensor nodes publish `/ego_speed` and `/obstacle_distance`, and my `ros2_brake_decider` node will subscribe, run the braking math, and publish a `/brake_cmd` decision.
+
 
