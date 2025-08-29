@@ -84,4 +84,10 @@ Installed ROS 2 Humble (ros-base) on WSL2, created `~/ros2_ws` colcon workspace,
 - Ran into Humble-specific compiler errors (`SetParametersResult` not found) and only fixed it after digging into the right namespace (`rcl_interfaces::msg::SetParametersResult`).
 - Also discovered the typical ROS workflow: run the node in one terminal, and use a second terminal to set params and watch the first terminal log updates or rejections. 
 
+## Day 13 – First real ROS 2 topics (pub/sub)
+- Subscribed to `/ego_speed` and `/obstacle_distance` (`std_msgs/Float64`) and used `ros2 topic pub` to feed fake values. First time I saw the callbacks actually print → proper “ah, they’re talking” moment.
+- Added my first publisher: `/brake_cmd` (`std_msgs/Bool`) ticking at 20 Hz. Weirdly satisfying to see `false` spam the terminal nonstop — feels like the node has a pulse now.
+- Ran into dumb mistakes (typo’d `std_msgs` as `std_msg`, forgot the underscore on a member, and even opened the wrong path once). Fixed them by checking includes, CMake deps, and running `ros2 node info` to see what was actually wired.
+- Big takeaway today: **topics = live event streams**, **parameters = config knobs**. Also got more used to the ROS workflow: one terminal runs the node, another pokes it with `pub/echo/hz`.
+
 
