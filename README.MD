@@ -66,7 +66,7 @@ Added `--csv` mode to the braking CLI; learned file I/O (`ifstream`), line/token
 ## Day 9 
 Added input clamping/validation to the braking CLI (interactive + `--csv`), and a tiny benchmark (~14.6 ns/op over 1e6 evals on WSL2, g++ -O3 -DNDEBUG).
 
-## Day 10 — Packaging & polish
+## Day 10 - Packaging & polish
 Added MIT license, install rules (CMake), local install layout, and tagged v0.1.0. All CSV tests green.
 
 ---
@@ -76,7 +76,7 @@ Installed ROS 2 Humble (ros-base) on WSL2, created `~/ros2_ws` colcon workspace,
 - **Reflection:**  Before today i was pretty much new to ROS, I learned that ROS 2 isn’t an “app,” but a framework where you build small programs called *nodes* that talk over *topics* (data streams) and use *parameters* for config. My `ros2_brake_decider` will be one such node, listening to speed + distance topics and publishing a brake command.
 **System view:** In ROS 2, sensor nodes publish `/ego_speed` and `/obstacle_distance`, and my `ros2_brake_decider` node will subscribe, run the braking math, and publish a `/brake_cmd` decision.
 
-## Day 12 – First real ROS 2 parameters
+## Day 12 - First real ROS 2 parameters
 - Started by figuring out why nodes are usually written as classes. Realized it’s so they can actually hold state (like params, callbacks, timers) instead of cramming everything into `main()`.
 - Declared my first parameters (`reaction_time`, `decel`, `safety_margin`) with defaults and learned how to read them at startup.
 - Found out the hard way that parameters don’t update on their own → had to learn about `add_on_set_parameters_callback`.
@@ -84,7 +84,7 @@ Installed ROS 2 Humble (ros-base) on WSL2, created `~/ros2_ws` colcon workspace,
 - Ran into Humble-specific compiler errors (`SetParametersResult` not found) and only fixed it after digging into the right namespace (`rcl_interfaces::msg::SetParametersResult`).
 - Also discovered the typical ROS workflow: run the node in one terminal, and use a second terminal to set params and watch the first terminal log updates or rejections. 
 
-## Day 13 – First real ROS 2 topics (pub/sub)
+## Day 13 - First real ROS 2 topics (pub/sub)
 - Subscribed to `/ego_speed` and `/obstacle_distance` (`std_msgs/Float64`) and used `ros2 topic pub` to feed fake values. First time I saw the callbacks actually print → proper “ah, they’re talking” moment.
 - Added my first publisher: `/brake_cmd` (`std_msgs/Bool`) ticking at 20 Hz. Weirdly satisfying to see `false` spam the terminal nonstop, feels like the node has a pulse now.
 - Ran into dumb mistakes (typo’d `std_msgs` as `std_msg`, forgot the underscore on a member, and even opened the wrong path once). Fixed them by checking includes, CMake deps, and running `ros2 node info` to see what was actually wired.
