@@ -90,4 +90,10 @@ Installed ROS 2 Humble (ros-base) on WSL2, created `~/ros2_ws` colcon workspace,
 - Ran into dumb mistakes (typo’d `std_msgs` as `std_msg`, forgot the underscore on a member, and even opened the wrong path once). Fixed them by checking includes, CMake deps, and running `ros2 node info` to see what was actually wired.
 - Big takeaway today: **topics = live event streams**, **parameters = config knobs**. Also got more used to the ROS workflow: one terminal runs the node, another pokes it with `pub/echo/hz`.
 
-
+## Day 14 - First Real Brake Decisions
+- Learned that subscriber callbacks only fire when new messages arrive → needed to store last values for speed and distance inside the class so the timer can always run.
+- Swapped the timer’s placeholder with the actual stopping-distance formula from my earlier C++ library (reaction + brake distance, with margin).
+- Had to wrap my head around why the output wasn’t flipping at first → turns out the node just keeps using the most recent values, so if the inputs don’t change, the decision stays stable.
+- Confirmed it works: publishing /ego_speed + /obstacle_distance made /brake_cmd flip between true (too close) and false (safe).
+- Bonus: experimented with live parameter changes (reaction_time, decel, safety_margin) and saw how the decision boundary moves in real time.
+- This was the first day the node actually made real braking decisions instead of just publishing a placeholder - feels like the project really came alive.
