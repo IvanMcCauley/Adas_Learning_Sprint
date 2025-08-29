@@ -15,7 +15,7 @@ The repo is where I:
 
 📌 Updated frequently — each day’s work is logged and visible here.
 
-# Projects 
+# Projects from this sprint
 [braking_decision_lib](https://github.com/IvanMcCauley/braking_decision_lib) - C++17 lib + CLI, CSV mode, tests, micro-benchmark.
 
 ## Day 1 - Environment Setup + Core Math Refresh
