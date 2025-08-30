@@ -97,3 +97,9 @@ Installed ROS 2 Humble (ros-base) on WSL2, created `~/ros2_ws` colcon workspace,
 - Confirmed it works: publishing /ego_speed + /obstacle_distance made /brake_cmd flip between true (too close) and false (safe).
 - Bonus: experimented with live parameter changes (reaction_time, decel, safety_margin) and saw how the decision boundary moves in real time.
 - This was the first day the node actually made real braking decisions instead of just publishing a placeholder - feels like the project really came alive.
+
+
+## Day 15 - Launch + params like a real ROS pkg
+- Added `config/brake_params.yaml` and a Python launch file to start the node with params preloaded (no more manual `param set`).
+- Learned how ROS installs non-code assets via CMake (`install(DIRECTORY launch config …)`), so `ros2 launch` can find them.
+- Sanity-checked with `ros2 param get` after launch - values came from YAML. Feels way closer to “clone & run.”
