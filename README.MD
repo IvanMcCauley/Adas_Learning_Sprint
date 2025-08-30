@@ -13,7 +13,7 @@ The repo is where I:
 
 🔍 **Focus areas**: C++ fundamentals, embedded logic, Python simulation, A*, PID, ROS 2, and real-time decision-making.  
 
-📌 Updated frequently — each day’s work is logged and visible here.
+📌 Updated frequently - each day’s work is logged and visible here.
 
 # Projects from this sprint
 [braking_decision_lib](https://github.com/IvanMcCauley/braking_decision_lib) - C++17 lib + CLI, CSV mode, tests, micro-benchmark.
