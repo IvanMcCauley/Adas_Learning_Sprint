@@ -15,7 +15,7 @@ The repo is where I:
 
 📌 Updated frequently - each day’s work is logged and visible here.
 
-# Projects from this sprint
+## Projects from this sprint
 [braking_decision_lib](https://github.com/IvanMcCauley/braking_decision_lib) - C++17 lib + CLI, CSV mode, tests, micro-benchmark.
 
 ## Day 1 - Environment Setup + Core Math Refresh
@@ -98,8 +98,24 @@ Installed ROS 2 Humble (ros-base) on WSL2, created `~/ros2_ws` colcon workspace,
 - Bonus: experimented with live parameter changes (reaction_time, decel, safety_margin) and saw how the decision boundary moves in real time.
 - This was the first day the node actually made real braking decisions instead of just publishing a placeholder - feels like the project really came alive.
 
-
 ## Day 15 - Launch + params like a real ROS pkg
 - Added `config/brake_params.yaml` and a Python launch file to start the node with params preloaded (no more manual `param set`).
 - Learned how ROS installs non-code assets via CMake (`install(DIRECTORY launch config …)`), so `ros2 launch` can find them.
 - Sanity-checked with `ros2 param get` after launch - values came from YAML. Feels way closer to “clone & run.”
+
+## Day 16 - Minimal ROS2 sim node
+- Built `longitudinal_1d_sim` (Python): `/brake_cmd` sub, 20 Hz timer, (x,v) update, CSV `t,x,v,d,brake_cmd,u`.
+- First bug: spun the **Node class** instead of an instance → executor crash. Fix: `rclpy.spin(node)`.
+- Finish spammed every tick → added one-shot finish + `self.timer.cancel()`.
+- Manual test: `/brake_cmd=True` from start ⇒ stop ≈ **2.2 s**, margin ≈ **57 m** (v0=20 m/s, decel=9).
+- Lesson: rclpy basics (subs/timers/params) clicked; always spin the **instance**.
+
+## Day 17 - Closed loop + plot
+- Sim now **publishes** `/ego_speed` + `/obstacle_distance` (Float64). C++ `brake_decider` **publishes** `/brake_cmd` → closed loop.
+- Added tiny `scripts/make_plot.py` to plot v(t), d(t) + scaled brake timeline from the latest CSV.
+- Saw `/brake_cmd` **chatter** near threshold (expected). Left it visible for v0.1.
+- Launch fix: use `get_package_share_directory(...)` for YAML path.
+- Result: **SUCCESS** ≈ **8.5 s**, margin ≈ **0.67 m** (nice demo of threshold behavior).
+- Next: split sim into its own repo + README; later add simple hysteresis and a tiny Pygame visualizer for media.
+
+
