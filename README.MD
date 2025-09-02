@@ -119,4 +119,9 @@ Installed ROS 2 Humble (ros-base) on WSL2, created `~/ros2_ws` colcon workspace,
 - Result: **SUCCESS** ≈ **8.5 s**, margin ≈ **0.67 m** (nice demo of threshold behavior).
 - Next: split sim into its own repo + README; later add simple hysteresis and a tiny Pygame visualizer for media.
 
+## Day 18 - Visualizer (CSV → MP4)
+- Built a small render from the sim CSV: left = car vs wall, right = v(t)/d(t) with a moving cursor.
+- Not fake—just replays `t,x,v,d,brake_cmd` from the CSV, so the brake light toggles exactly like the run.
+- Hiccup: forgot `ffmpeg`, got a writer error; installed it and it saved to `~/ros2_ws/results/videos/*.mp4`.
+- Note: `tight_layout()` complains about equal axes (harmless).
 
