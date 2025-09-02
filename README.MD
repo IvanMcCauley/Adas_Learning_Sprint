@@ -122,6 +122,18 @@ Installed ROS 2 Humble (ros-base) on WSL2, created `~/ros2_ws` colcon workspace,
 ## Day 18 - Visualizer (CSV → MP4)
 - Built a small render from the sim CSV: left = car vs wall, right = v(t)/d(t) with a moving cursor.
 - Not fake—just replays `t,x,v,d,brake_cmd` from the CSV, so the brake light toggles exactly like the run.
+- Learned some Matplotlib basics as I went: figures vs axes, simple GridSpec, `ax.plot(...)`, `axvline(...)`, and saving with the ffmpeg writer.
 - Hiccup: forgot `ffmpeg`, got a writer error; installed it and it saved to `~/ros2_ws/results/videos/*.mp4`.
 - Note: `tight_layout()` complains about equal axes (harmless).
+
+## Day 19 - Video polish
+- Cleaned the CSV→MP4 replay: bold title, tiny decision badge, Topics+Params block.
+- World view: car block + **brake light square** (only when braking), thin road, wall; HUD above title.
+- Plots: v(t) & d(t) with a single time cursor.
+- Matplotlib bits I actually learned: `zorder` (draw order), axes transforms for HUD placement (`transform=ax.transAxes`), patch rectangles.
+- Tweaks: brake light size/position; learned `zorder` for draw order.
+Notes:
+- ON/OFF flicker = expected threshold chatter.
+- v0≈19.6 m/s due to one 50 ms brake tick.
+
 
