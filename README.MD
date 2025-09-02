@@ -17,7 +17,8 @@ The repo is where I:
 
 ## Projects from this sprint
 [braking_decision_lib](https://github.com/IvanMcCauley/braking_decision_lib) - C++17 lib + CLI, CSV mode, tests, micro-benchmark.
-[ROS2_Brake_Decider](https://github.com/IvanMcCauley/ROS2_Brake_Decider) - parameterized node with pub/sub
+[ros2_brake_decider](https://github.com/IvanMcCauley/ros2_brake_decider) - parameterized node with pub/sub
+[ros2_brake_validaion_sim](https://github.com/IvanMcCauley/ros2_brake_validation_sim) - validate decisions in a simulation
 
 ## Day 1 - Environment Setup + Core Math Refresh
 
