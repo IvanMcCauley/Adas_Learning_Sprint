@@ -1,141 +1,30 @@
-# Coding Sprint: Closing the Gap for ADAS & Autonomy Roles 🚗💻
+# ADAS Learning Sprint 🚗💻
 
-This repository tracks my coding sprint to close the gap between my current skills and what’s needed for real-world ADAS and autonomous systems work.
+**What this is:**  
+A personal learning log where I tracked my sprint to further close the gap between my Mechatronic Engineering background and the skills needed for ADAS/autonomy roles.  
 
-I’m a Mechatronic Engineering graduate with project experience in YOLOv8 detection, BEV transformation, and A* path planning. Now I’m focusing on building deeper fluency in C++ and Python to meet the demands of embedded systems, planning, and perception roles in autonomy.
-
-The repo is where I:
-- ✅ Practice critical programming skills in C++ and Python  
-- ✅ Rebuild core math/control foundations for robotics  
-- ✅ Complete focused micro-projects tied to planning, perception, and control  
-- ✅ Track progress day-by-day 
-- ✅ Build tangible fluency through hands-on code  
-
-🔍 **Focus areas**: C++ fundamentals, embedded logic, Python simulation, A*, PID, ROS 2, and real-time decision-making.  
-
-📌 Updated frequently - each day’s work is logged and visible here.
-
-## Projects from this sprint
-#### Braking Decision System (three stages):
-- [braking_decision_lib](https://github.com/IvanMcCauley/braking_decision_lib) - C++17 lib + CLI, CSV mode, tests, micro-benchmark.
-- [ros2_brake_decider](https://github.com/IvanMcCauley/ros2_brake_decider) - parameterized node with pub/sub.
-- [ros2_brake_validaion_sim](https://github.com/IvanMcCauley/ros2_brake_validation_sim) - validate decisions in a simulation
-
-## Day 1 - Environment Setup + Core Math Refresh
-
-- Set up Python, C++, Git, VS Code, Linux (WSL2)
-- Wrote some basic python and C++ scripts to get warmed up
-- Reviewed calculus (v = ds/dt), 2D rotation matrices
-- Started PID controller summary in notes/control.md
-
-
-## Day 2 - Physics Refresh & C++ Work
-- Reviewed key physics concepts for vehicle dynamics and control theory and added Physics_Notes.md
-- Verified C++ environment setup (Linux toolchain + VS Code integration).
-- Compiled and ran first test program to confirm toolchain functionality.
-- Configured VS Code debugger for step-by-step execution.
-- Maintained organized folder structure (`Week1/day2_cpp`) for ongoing C++ exercises.
-
-
-## Day 3 - C++
-- Implemented: basics, I/O, conditions, loops (for/while/do-while), arrays, calculator
-- Key skills: `cin` validation, `switch`, edge cases, `-Wall -Wextra`
-- Code: `Week1/day3_cpp/*`
-
-## Day 4 – C++ Memory Safety & Const
-- Pointers & references basics (`pointers_refs.cpp`)  
-- Pass-by-pointer vs pass-by-reference (`2_4a`, `2_4b`)  
-- Return by reference (`2_5_return_by_ref.cpp`)  
-- Dynamic allocation with `new`/`delete` (`dynamic.cpp`, `dynamic_array.cpp`)  
-- `std::vector` basics + dataset return (`vector_basic.cpp`, `2_7_*.cpp`)  
-- Memory pitfalls: dangling pointer, double delete (`2_6_*`)  
-- Safe fixes: return by value, vectors  
-- Const correctness: const params, const pointers, const member fns (`3_*.cpp`)  
-- Capstone: ADAS-style braking/reaction distance + `needs_brake()` (`safety.cpp`) 
-
-## Day 5 - C++ modularity (braking_decision_lib)
-- Built `day5_braking/`: library + CLI + tiny tests from Day 4 `safety.cpp`.
-- Practiced: headers vs sources, default 10% margin, `assert` guards, CMake lib/exe.
-- Run: `cd day5_braking && mkdir -p build && cd build && cmake .. && make && ./brake_cli && ./braking_tests`
-- Docs: see `day5_braking/README.md`.
-
-## Day 6 - C++ modularity II (tests + margin)
-- Added `--margin` flag to CLI; extra margin tests; optional strict build (`-Werror`).
-- Run: `cd day5_braking/build && cmake -DBRK_STRICT=ON .. && make && ./brake_cli --margin 0.2 && ./braking_tests`
-
-## Day 8 - CSV I/O
-Added `--csv` mode to the braking CLI; learned file I/O (`ifstream`), line/token parsing (`getline`, `stringstream`), and safe number conversion (`stod`). Added tiny fixtures + a shell test that diffs expected vs actual output.
-
-## Day 9 
-Added input clamping/validation to the braking CLI (interactive + `--csv`), and a tiny benchmark (~14.6 ns/op over 1e6 evals on WSL2, g++ -O3 -DNDEBUG).
-
-## Day 10 - Packaging & polish
-Added MIT license, install rules (CMake), local install layout, and tagged v0.1.0. All CSV tests green.
+The sprint produced a 3-stage braking decision system:  
+1. **[braking_decision_lib](https://github.com/IvanMcCauley/braking_decision_lib)** - C++17 stopping-distance library + CLI/tests  
+2. **[ros2_brake_decider](https://github.com/IvanMcCauley/ros2_brake_decider)** - ROS 2 C++ node (params, pub/sub, 20 Hz decisions)  
+3. **[ros2_brake_validation_sim](https://github.com/IvanMcCauley/ros2_brake_validation_sim)** - Python 1D sim + replay, closed-loop validation  
 
 ---
 
-## Day 11 - ROS 2 setup
-Installed ROS 2 Humble (ros-base) on WSL2, created `~/ros2_ws` colcon workspace, and scaffolded first package `ros2_brake_decider`. Verified build and discovery (`ros2 pkg list`).
-- **Reflection:**  Before today i was pretty much new to ROS, I learned that ROS 2 isn’t an “app,” but a framework where you build small programs called *nodes* that talk over *topics* (data streams) and use *parameters* for config. My `ros2_brake_decider` will be one such node, listening to speed + distance topics and publishing a brake command.
-**System view:** In ROS 2, sensor nodes publish `/ego_speed` and `/obstacle_distance`, and my `ros2_brake_decider` node will subscribe, run the braking math, and publish a `/brake_cmd` decision.
+## Full log
+The raw day-by-day notes have been moved to [log/README.md](log/README.md).  
 
-## Day 12 - First real ROS 2 parameters
-- Started by figuring out why nodes are usually written as classes. Realized it’s so they can actually hold state (like params, callbacks, timers) instead of cramming everything into `main()`.
-- Declared my first parameters (`reaction_time`, `decel`, `safety_margin`) with defaults and learned how to read them at startup.
-- Found out the hard way that parameters don’t update on their own → had to learn about `add_on_set_parameters_callback`.
-- Added simple safety checks after testing: `reaction_time ≥ 0`, `decel > 0`, `0 ≤ safety_margin ≤ 1`.
-- Ran into Humble-specific compiler errors (`SetParametersResult` not found) and only fixed it after digging into the right namespace (`rcl_interfaces::msg::SetParametersResult`).
-- Also discovered the typical ROS workflow: run the node in one terminal, and use a second terminal to set params and watch the first terminal log updates or rejections. 
+---
 
-## Day 13 - First real ROS 2 topics (pub/sub)
-- Subscribed to `/ego_speed` and `/obstacle_distance` (`std_msgs/Float64`) and used `ros2 topic pub` to feed fake values. First time I saw the callbacks actually print → proper “ah, they’re talking” moment.
-- Added my first publisher: `/brake_cmd` (`std_msgs/Bool`) ticking at 20 Hz. Weirdly satisfying to see `false` spam the terminal nonstop, feels like the node has a pulse now.
-- Ran into dumb mistakes (typo’d `std_msgs` as `std_msg`, forgot the underscore on a member, and even opened the wrong path once). Fixed them by checking includes, CMake deps, and running `ros2 node info` to see what was actually wired.
-- Big takeaway today: **topics = live event streams**, **parameters = config knobs**. Also got more used to the ROS workflow: one terminal runs the node, another pokes it with `pub/echo/hz`.
+## TL;DR - Why this repo exists
+- The three repos above contain the actual code and full documentation.  
+- **This repo is my day-by-day log**: setup, math refresh, C++ drills, ROS 2 basics, and eventually building + validating the full pipeline.  
+- I’m keeping it public as a record of the process.
 
-## Day 14 - First Real Brake Decisions
-- Learned that subscriber callbacks only fire when new messages arrive → needed to store last values for speed and distance inside the class so the timer can always run.
-- Swapped the timer’s placeholder with the actual stopping-distance formula from my earlier C++ library (reaction + brake distance, with margin).
-- Had to wrap my head around why the output wasn’t flipping at first → turns out the node just keeps using the most recent values, so if the inputs don’t change, the decision stays stable.
-- Confirmed it works: publishing /ego_speed + /obstacle_distance made /brake_cmd flip between true (too close) and false (safe).
-- Bonus: experimented with live parameter changes (reaction_time, decel, safety_margin) and saw how the decision boundary moves in real time.
-- This was the first day the node actually made real braking decisions instead of just publishing a placeholder - feels like the project really came alive.
+---
 
-## Day 15 - Launch + params like a real ROS pkg
-- Added `config/brake_params.yaml` and a Python launch file to start the node with params preloaded (no more manual `param set`).
-- Learned how ROS installs non-code assets via CMake (`install(DIRECTORY launch config …)`), so `ros2 launch` can find them.
-- Sanity-checked with `ros2 param get` after launch - values came from YAML. Feels way closer to “clone & run.”
-
-## Day 16 - Minimal ROS2 sim node
-- Built `longitudinal_1d_sim` (Python): `/brake_cmd` sub, 20 Hz timer, (x,v) update, CSV `t,x,v,d,brake_cmd,u`.
-- First bug: spun the **Node class** instead of an instance → executor crash. Fix: `rclpy.spin(node)`.
-- Finish spammed every tick → added one-shot finish + `self.timer.cancel()`.
-- Manual test: `/brake_cmd=True` from start ⇒ stop ≈ **2.2 s**, margin ≈ **57 m** (v0=20 m/s, decel=9).
-- Lesson: rclpy basics (subs/timers/params) clicked; always spin the **instance**.
-
-## Day 17 - Closed loop + plot
-- Sim now **publishes** `/ego_speed` + `/obstacle_distance` (Float64). C++ `brake_decider` **publishes** `/brake_cmd` → closed loop.
-- Added tiny `scripts/make_plot.py` to plot v(t), d(t) + scaled brake timeline from the latest CSV.
-- Saw `/brake_cmd` **chatter** near threshold (expected). Left it visible for v0.1.
-- Launch fix: use `get_package_share_directory(...)` for YAML path.
-- Result: **SUCCESS** ≈ **8.5 s**, margin ≈ **0.67 m** (nice demo of threshold behavior).
-- Next: split sim into its own repo + README; later add simple hysteresis and a tiny Pygame visualizer for media.
-
-## Day 18 - Visualizer (CSV → MP4)
-- Built a small render from the sim CSV: left = car vs wall, right = v(t)/d(t) with a moving cursor.
-- Not fake—just replays `t,x,v,d,brake_cmd` from the CSV, so the brake light toggles exactly like the run.
-- Learned some Matplotlib basics as I went: figures vs axes, simple GridSpec, `ax.plot(...)`, `axvline(...)`, and saving with the ffmpeg writer.
-- Hiccup: forgot `ffmpeg`, got a writer error; installed it and it saved to `~/ros2_ws/results/videos/*.mp4`.
-- Note: `tight_layout()` complains about equal axes (harmless).
-
-## Day 19 - Video polish
-- Cleaned the CSV→MP4 replay: bold title, tiny decision badge, Topics+Params block.
-- World view: car block + **brake light square** (only when braking), thin road, wall; HUD above title.
-- Plots: v(t) & d(t) with a single time cursor.
-- Matplotlib bits I actually learned: `zorder` (draw order), axes transforms for HUD placement (`transform=ax.transAxes`), patch rectangles.
-- Tweaks: brake light size/position; learned `zorder` for draw order.
-Notes:
-- ON/OFF flicker = expected threshold chatter.
-- v0≈19.6 m/s due to one 50 ms brake tick.
-
+## Focus areas during the sprint
+- C++ fundamentals (memory safety, modularity, headers/sources, testing, CMake)  
+- Core math/physics for stopping distance and control  
+- ROS 2 nodes, topics, parameters, timers, QoS  
+- Python simulation and replay for validation  
 
