@@ -1,7 +1,7 @@
 # ADAS Learning Sprint - Day-by-Day Log
 
 This folder contains my **raw daily notes** from the sprint.  
-They’re here for transparency and reflection - if you just want the runnable code, see the Stage 1–3 repos in the [main README](../README.md).
+They’re here for transparency and reflection - if you just want the runnable code, see the Stage 1–3 repos in the [main README](../README.MD).
 
 ---
 
