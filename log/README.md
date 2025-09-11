@@ -155,3 +155,11 @@ make
 - HUD above world view.
 - Plots with time cursor.
 - Result: clear MP4 replay of closed-loop run.
+
+---
+
+# Sprint 2 - Systems-minded AV/ADAS (14 DAYS)
+## Day 20 — ROS 2 graph, QoS, domains, bagging (operator skills)
+- Got talker/listener running, read QoS per endpoint (RELIABLE/VOLATILE), tried BEST_EFFORT (worked) vs TRANSIENT_LOCAL (failed as expected), and isolated graphs with ROS_DOMAIN_ID (0 ↔ 17).  
+- Recorded + replayed `/chatter` and proved the publisher was `/rosbag2_play…` - finally “get” QoS compatability and bag replay (also learned the bash `|`/`grep`/`||` basics).
+
