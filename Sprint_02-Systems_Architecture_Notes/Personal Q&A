@@ -1,0 +1,32 @@
+# Quick flashcard questions:
+## Day 1
+- What does QoS Reliability control? 
+  - RELIABILITY is delivery guarantee: RELIABLE retries/no drops (adds latency); BEST_EFFORT favors freshness and can drop frames.
+- Give two topics that should be RELIABLE. 
+  - /brake_cmd, /trajectory (planner→controller), mode/mission commands.
+- Give two topics that should be BEST_EFFORT. 
+  - /camera/image_raw, /lidar/points, /imu/data.
+- Why is RELIABLE risky on high-rate sensors? 
+  - It can queue under load → latency grows → bursts of stale frames → “driving into the past.”
+- What does QoS Durability control? 
+  - Late-joiner behavior: TRANSIENT_LOCAL stores last N for new subscribers; VOLATILE does not.
+- Give two topics that should be TRANSIENT_LOCAL. 
+  - /tf_static, static /map, camera intrinsics/calibration blob.
+- Is Reader RELIABLE ← Writer BEST_EFFORT compatible? 
+  - No - reader demands a guarantee the writer can’t provide.
+- Is Reader BEST_EFFORT ← Writer RELIABLE compatible? 
+  - Yes - effective delivery becomes best-effort for that reader.
+- Is Reader TRANSIENT_LOCAL ← Writer VOLATILE compatible? 
+  - No - reader wants a latched sample; writer keeps none.
+- Do History/Depth affect matching? 
+  - No - they’re local buffers (latency/drop trade-off), not a matching criterion.
+- What does ROS_DOMAIN_ID do? 
+  - Sets a DDS/ROS discovery island; nodes only see others with the same domain ID.
+- Two reasons to use different domains. 
+  - Run multiple sims/tests in parallel; separate robots on one LAN; isolate noisy debugging.
+- How do I prove a bag is publishing /X? 
+  - ros2 topic info /X -v → Publishers list shows /rosbag2_play_*; then ros2 node info /rosbag2_play_* confirms it publishes /X.
+- Minimal commands to record and loop-play a bag. 
+  - ros2 bag record -o out /X and ros2 bag play --loop out
+- Subscriber is silent - first 3 checks? 
+  - Topic exists? (ros2 topic list); Publishers + QoS? (ros2 topic info -v); Domain matches? (echo $ROS_DOMAIN_ID)
