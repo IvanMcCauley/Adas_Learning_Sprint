@@ -39,7 +39,7 @@
   -  Runs the parent **`Node`** constructor so *this object* becomes a real ROS node (graph registration, logger, params, timers).
 
 
-- ####  `create_subscription(String, '/chatter', self.on_msg, qos)` — name the four args.
+- ####  `create_subscription(String, '/chatter', self.on_msg, qos)` - name the four args.
   -  **Message type**, **topic name**, **callback function**, **QoS**.
 
 
