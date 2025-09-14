@@ -109,7 +109,7 @@ VOLATILE = no history for late joiners.
   - `ros2 run planning101 qos_probe --ros-args --params-file /full/path/qos_probe.yaml`
 
 
-- ####  YAML vs CLI `-p key:=val`  -who wins?
+- ####  YAML vs CLI `-p key:=val` - who wins?
   - **CLI overrides** YAML at startup.
 
 
