@@ -99,12 +99,12 @@ VOLATILE = no history for late joiners.
 
 
 - ####  Correct source order (underlay/overlay) and why absolute path?
-  -  
+  -  Àbsolute path is used as it will work in any directory
     ```bash
     source /opt/ros/humble/setup.bash
     source ~/ros2_ws/install/setup.bash
     ```
-
+      
 - ####  How to load params from a file with `ros2 run`?
   - `ros2 run planning101 qos_probe --ros-args --params-file /full/path/qos_probe.yaml`
 
@@ -146,7 +146,7 @@ VOLATILE = no history for late joiners.
     ```
 
 - ####  Subscriber callback signature?
-  - `def on_msg(self, msg):` — ROS passes `msg`; Python supplies `self`.
+  - `def on_msg(self, msg):` - ROS passes `msg`; Python supplies `self`.
 
 
 - ####  Fast proof that a bag is publishing `/X`?
