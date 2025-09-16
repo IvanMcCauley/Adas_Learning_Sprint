@@ -1,4 +1,4 @@
-# Day 01 — ROS 2 Graph, QoS, Domains, Bagging (study notes)
+# Day 01 - ROS 2 Graph, QoS, Domains, Bagging (study notes)
 *(Purely personal notes to come back to, not a tutorial.)*
 
 ## Core ideas to remember
