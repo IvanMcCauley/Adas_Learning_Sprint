@@ -159,7 +159,20 @@ make
 ---
 
 # Sprint 2 - Systems-minded AV/ADAS (14 DAYS)
-## Day 20 — ROS 2 graph, QoS, domains, bagging (operator skills)
+## Day 20 - ROS 2 graph, QoS, domains, bagging (operator skills)
 - Got talker/listener running, read QoS per endpoint (RELIABLE/VOLATILE), tried BEST_EFFORT (worked) vs TRANSIENT_LOCAL (failed as expected), and isolated graphs with ROS_DOMAIN_ID (0 ↔ 17).  
 - Recorded + replayed `/chatter` and proved the publisher was `/rosbag2_play…` - finally “get” QoS compatability and bag replay (also learned the bash `|`/`grep`/`||` basics).
 - Wrote personal study notes in [Sprint_02-Systems_Architecture_Notes](https://github.com/IvanMcCauley/Adas_Learning_Sprint/tree/main/Sprint_02-Systems_Architecture_Notes) folder.
+
+## Day 21 - ROS 2 Python node + QoS/params/launch
+- Created ament_python pkg planning101; wrote qos_probe subscriber to /chatter with QoS from params (CLI wins over YAML).
+- Fixed setup.py (console_scripts + data_files) so launch/params install under share/…; built with --symlink-install and ran via ros2 run + ros2 launch.
+- Verified endpoint QoS with ros2 topic info -v.
+- Learned super().\__init__, self, callbacks, create_subscription(type, topic, callback, qos) and why QoS mismatch = no messages.
+
+## Day 22 - Timing: latency vs period jitter
+- Added pinger that stamps Header on /ping; qos_probe computes E2E latency (now − msg.stamp) and sliding-window mean/max.
+- Observed ~0.7–1.6 ms typical latency with small spikes.
+- Compared with ros2 topic hz (period jitter): /ping ~20 Hz with tiny jitter; /chatter ~1 Hz with ≈±25 ms.
+- Proved changing a QoS param at runtime doesn’t rewire an existing sub (QoS fixed at creation).
+- Now solid on timers, age-of-info vs jitter, and how to read QoS per endpoint.
