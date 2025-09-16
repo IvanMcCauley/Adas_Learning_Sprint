@@ -37,101 +37,59 @@
 
 - ####  What does `super().__init__('name')` do in a ROS 2 node?
   -  Runs the parent **`Node`** constructor so *this object* becomes a real ROS node (graph registration, logger, params, timers).
-
-
 - ####  `create_subscription(String, '/chatter', self.on_msg, qos)` - name the four args.
   -  **Message type**, **topic name**, **callback function**, **QoS**.
-
-
 - ####  What can the 4th arg (`qos`) be?
   -  Either an **int depth** (shorthand for `KEEP_LAST depth`, default RELIABLE/VOLATILE) or a full **`QoSProfile`**.
-
-
 - ####  Why pass `self.on_msg` without `()`?
   -  It’s a **callback**; you pass the function itself now so ROS can call it later. `self.on_msg()` would call it immediately.
-
-
 - ####  What does `10` as the 4th arg mean?
   -  `KEEP_LAST 10` with defaults: **RELIABLE** + **VOLATILE**.
-
-
 - ####  What does `self` let you access?
   -  **This node’s** state (`self.count`) and tools (`self.get_logger()`, `self.create_timer()`, `self.create_subscription()`).
-
-
 - ####  Define **RELIABLE** vs **BEST_EFFORT** (one-liners).
   -  RELIABLE = retries, no intentional drops (can add latency).  
 BEST_EFFORT = freshest wins; drops OK.
-
-
 - ####  Define **TRANSIENT_LOCAL** vs **VOLATILE** (one-liners).
   -  TRANSIENT_LOCAL = writer keeps last N; late joiners get it.  
 VOLATILE = no history for late joiners.
-
-
 - ####  Compat: Reader **RELIABLE** ← Writer **BEST_EFFORT** ?
   -  **Incompatible** (reader demands guaranteed delivery the writer can’t provide).
-
-
 - ####  Compat: Reader **TRANSIENT_LOCAL** ← Writer **VOLATILE** ?
   -  **Incompatible** (reader wants a latched sample; writer stores none).
-
-
 - ####  Common sensor QoS pattern?
   -  `BEST_EFFORT + KEEP_LAST (small 5–10) + VOLATILE` (favor freshness, avoid lag).
-
-
 - ####  Common command/trajectory QoS pattern?
   -  `RELIABLE + KEEP_LAST ≥1 + VOLATILE` (don’t miss commands).
-
-
 - ####  Where do **launch** and **param** files live in the package?
   -  `launch/` and `config/` at the **package root** (next to `setup.py`), not inside the Python module folder.
-
-
 - ####  Two `setup.py` sections you must know and why?
   -  `entry_points['console_scripts']` → enables `ros2 run pkg exe`.  
 `data_files` → installs `launch/` + `config/` to `share/pkg/...` for `ros2 launch` and YAML.
-
-
 - ####  Why `colcon build --symlink-install` for Python?
   -  Installed files **symlink** to source, so `.py` edits are picked up **without rebuild**.
-
-
 - ####  Correct source order (underlay/overlay) and why absolute path?
   -  Àbsolute path is used as it will work in any directory
     ```bash
     source /opt/ros/humble/setup.bash
     source ~/ros2_ws/install/setup.bash
     ```
-      
 - ####  How to load params from a file with `ros2 run`?
   - `ros2 run planning101 qos_probe --ros-args --params-file /full/path/qos_probe.yaml`
-
-
 - ####  YAML vs CLI `-p key:=val` - who wins?
   - **CLI overrides** YAML at startup.
-
-
 - ####  How does a launch file find your YAML at runtime?
   - Via `get_package_share_directory('pkg')` then `os.path.join(..., 'config', 'file.yaml')` because `data_files` installed it under `share/pkg/config/`.
-
-
 - ####  Quick command to prove subscriber QoS on `/chatter`?
   - `ros2 topic info /chatter -v` (check the **Subscribers** block for your node’s Reliability/Durability/Depth).
-
-
 - ####  Why can RELIABLE on high-rate sensors be risky?
   - Queues can build under load → **latency grows** → bursts of **stale frames** (acting on old data).
-
-
 - ####  One-liner: list a node’s params & read one
   - 
     ```bash
     ros2 param list /qos_probe
     ros2 param get  /qos_probe reliability
     ```
-
 - ####  Minimal node skeleton to remember?
   - 
     ```python
@@ -144,14 +102,36 @@ VOLATILE = no history for late joiners.
         def tick(self):
             self.get_logger().info("tick")
     ```
-
 - ####  Subscriber callback signature?
   - `def on_msg(self, msg):` - ROS passes `msg`; Python supplies `self`.
-
-
 - ####  Fast proof that a bag is publishing `/X`?
   - Play the bag, then check publishers:
   ```bash
   ros2 topic info /X -v   # Publishers list should show /rosbag2_play_*
-```
+  ```
+
+---
+
+## Day 22 - Timing: Latency & Jiiter
+- #### Why must the message carry a send timestamp to measure E2E latency?
+  - Without the send time, you can’t compute <code>receive_now − send_time</code> → no age-of-information.
+- #### Define E2E latency vs period jitter in one line each.
+  - Latency = age of info at consumption (now − msg.stamp).  
+  - Jitter = variability of inter-arrival intervals (Δt between messages).
+- #### One common cause that increases latency but doesn’t necessarily change mean period?
+  - RELIABLE back-pressure/retries causing queueing (messages get older before delivery).
+- #### Why use a sliding window (e.g., last 100 samples) for stats?
+  - It reflects current behavior and exposes recent spikes; lifetime averages hide problems.
+- #### What does <code>create_timer(0.05, cb)</code> actually do?
+  - Schedules <code>cb</code> to run every 50 ms using the node’s clock; executor fires it like any other event.
+- #### Convert ROS time (sec + nanosec) to one number safely - why prefer integers first?
+  - Use integers (ns or ms) to avoid float rounding, then format at the end (e.g., <code>:.2f</code>).
+- #### What QoS setting tends to minimize age-of-info under load and why?
+  - BEST_EFFORT - drops instead of retrying, avoiding backlog and stale deliveries.
+- #### Does changing a “reliability” parameter at runtime update an existing subscription’s QoS?
+  - No, QoS is fixed at creation; you must destroy and recreate the endpoint to apply new QoS.
+- #### A clean way to verify publisher vs subscriber QoS on a topic?
+  - <code>ros2 topic info /X -v</code> (check each endpoint’s Reliability/Durability/Depth).
+- #### Your `/chatter` shows avg ~1.0 Hz with min 0.990 s, max 1.025 s. What is that telling you?
+  - About ±25 ms period jitter - normal timer/OS variability at 1 Hz.
 
