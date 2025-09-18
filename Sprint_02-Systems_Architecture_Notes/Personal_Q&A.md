@@ -135,3 +135,51 @@ VOLATILE = no history for late joiners.
 - #### Your `/chatter` shows avg ~1.0 Hz with min 0.990 s, max 1.025 s. What is that telling you?
   - About ±25 ms period jitter - normal timer/OS variability at 1 Hz.
 
+---
+
+## Day 23 - ADAS fundamentals review & sensors overview + stack overview & E2E timing
+- #### Why do AVs use camera + radar + LiDAR together?
+  - To combine complementary strengths: camera = semantics; radar = range/velocity + bad-weather robustness; LiDAR = precise 3D geometry. Fusion covers each sensor’s weaknesses.
+- #### What is “ego state”?
+  - The car’s own pose, velocity, acceleration, yaw/yaw-rate (+ uncertainty). Published by Localization; used by Fusion, Planning, and Control.
+- #### Covariance (plain meaning)?
+  - A confidence “bubble” around an estimate; **bigger = less sure**. Filters use it to weight updates and to set matching gates.
+- #### Data association (in fusion/tracking)?
+  - Matching new detections to existing tracks/IDs. Errors cause ID swaps, ghosts, or lost tracks. Gate by distance/uncertainty, then assign (NN/Hungarian) or use JPDA in clutter.
+- #### Gating (what & why)?
+  - A pre-filter that discards detections too far (statistically) from a track’s prediction (e.g., Mahalanobis gate). Cuts false matches and compute.
+- #### UKF vs EKF (one-liner)?
+  - **EKF** linearizes with Jacobians (straight-line approximation). **UKF** propagates sigma points through the true nonlinearity - steadier for turns and angle/range sensors (radar).
+- #### JPDA (when to use)?
+  - In crowded scenes, it assigns detections to tracks **probabilistically** to avoid flip-flopping IDs when objects overlap.
+- #### TF `odom → base_link` means?
+  - The rigid transform giving the car’s pose of `base_link` expressed in the `odom` frame. (`odom` = smooth local frame that may drift; `base_link` = vehicle body frame.)
+- #### `TRANSIENT_LOCAL` vs `VOLATILE` durability?
+  - **TRANSIENT_LOCAL:** keep last sample for late joiners (static frames/maps/calibration).
+  - **VOLATILE:** don’t keep history (live streams).
+- #### RELIABLE vs BEST_EFFORT?
+  - **RELIABLE** guarantees delivery (can backlog). **BEST_EFFORT** drops on loss (no retries). Use BEST_EFFORT for firehose sensors; RELIABLE (with anti-stale settings) for tracks/trajectories.
+- #### What does `KEEP_LAST N` control?
+  - Queue depth at pub/sub. Small values absorb micro-hiccups without building stale backlog; pub depth >1 (with RELIABLE) gives the writer headroom.
+- #### Deadline vs Lifespan?
+  - **Deadline:** watchdog for expected cadence (detect late). **Lifespan:** publisher auto-expires samples older than a set age (prevents acting on stale).
+- #### Freshness controls besides BEST_EFFORT?
+  - Small queues (`KEEP_LAST`), **lifespan**, **deadlines**, and app-level **drop-stale** (`now - stamp` guard). Co-locate hot nodes / intra-process to cut transport.
+- #### Intra-process comms (plain English)?
+  - Put chatty nodes in the **same program** so they pass **pointers** in memory instead of serializing - per-hop delay drops to sub-ms.
+- #### E2E latency vs timing budgets?
+  - **Latency (E2E)** is total sensor→command delay. **Timing budgets** are per-stage compute targets that, plus a transport slice, must sum ≤ the E2E target.
+- #### Example E2E timing split (50 ms)?
+  - Perception 18 ms + Fusion 7 ms + Planning 12 ms + Control 5 ms + Transport 8 ms = **50 ms** (example; tune per stack/speed).
+- #### Why RELIABLE (not BEST_EFFORT) for Fusion → Planning (10–20 Hz)?
+  - Planner decisions are stateful; missing a 50–100 ms update can cause jitter/late actions. Use **RELIABLE + small depth + lifespan + deadlines** to get **fresh & complete** data.
+- #### When does the planner reuse the same sensor sample?
+  - When the **consumer runs faster** than the producer (e.g., planner 20 Hz, radar 12.5 Hz) or when backlog exists. If rates match and delay is fixed, after the first tick there’s typically **no reuse**.
+- #### What is “transport time”?
+  - Non-compute delay between nodes: serialization, DDS queues/ACKs, OS scheduling, network/IPC. Measure as `age_at_use = now − msg.header.stamp` minus your compute.
+- #### Is QoS always symmetrical (pub=sub)?
+  - No. Intentional mismatches can help: **Pub RELIABLE × Sub BEST_EFFORT** (viz won’t back-pressure), **Pub TRANSIENT_LOCAL × Sub VOLATILE** (no replay for that sub). It just needs to remain **compatible**. Mismatches can be used when one node is publishing messages to more than one destination, one destination may have different QoS requirements than the other.
+- #### Sensors → Perception QoS (typical)?
+  - `BEST_EFFORT, VOLATILE, KEEP_LAST 1` (optionally lifespan ≈ 1 frame). Minimize latency; never replay old frames.
+- #### Planning → Control QoS (typical)?
+  - `RELIABLE, VOLATILE, KEEP_LAST 2–5`, `deadline 60–80 ms`, `lifespan ~150 ms`. Keep only the latest trajectories; drop anything late.
