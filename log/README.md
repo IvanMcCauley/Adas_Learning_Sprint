@@ -178,3 +178,10 @@ make
 - Proved changing a QoS param at runtime doesn’t rewire an existing sub (QoS fixed at creation).
 - Now solid on timers, age-of-info vs jitter, and how to read QoS per endpoint.
 - Wrote personal study notes in [Sprint_02-Systems_Architecture_Notes](https://github.com/IvanMcCauley/Adas_Learning_Sprint/tree/main/Sprint_02-Systems_Architecture_Notes) folder.
+
+## Day 23 - ADAS fundamentals overview and sensor suite + full stack timing
+- Reviewed ADAS fundamentals again and quick sensor overview (advantages, limitations, why sensor fusion?)
+- Mapped the full AV pipeline (sensors → perception → localization → fusion → planning → control) and wrote concrete topic/QoS profiles (reliability, durability, depth, deadlines, lifespan). 
+- Locked core concepts - covariance, data association, UKF/JPDA, ego state—and clarified TF `odom→base_link`.
+- Built a first latency plan (target ~50 ms sensor→command) and practiced “freshness” thinking: small queues, lifespan, deadlines, and drop-stale guards.
+- Wrote personal study notes in [Sprint_02-Systems_Architecture_Notes](https://github.com/IvanMcCauley/Adas_Learning_Sprint/tree/main/Sprint_02-Systems_Architecture_Notes) folder.
