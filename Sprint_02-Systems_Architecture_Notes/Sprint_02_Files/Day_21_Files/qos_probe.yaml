@@ -1,0 +1,7 @@
+qos_probe:
+  ros__parameters:
+    topic_name: /chatter
+    reliability: best_effort
+    durability: volatile
+    depth: 5
+    
