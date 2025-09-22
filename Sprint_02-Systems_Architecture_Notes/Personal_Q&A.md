@@ -183,3 +183,50 @@ VOLATILE = no history for late joiners.
   - `BEST_EFFORT, VOLATILE, KEEP_LAST 1` (optionally lifespan ≈ 1 frame). Minimize latency; never replay old frames.
 - #### Planning → Control QoS (typical)?
   - `RELIABLE, VOLATILE, KEEP_LAST 2–5`, `deadline 60–80 ms`, `lifespan ~150 ms`. Keep only the latest trajectories; drop anything late.
+ 
+## Day 23 - Kalman Filters
+- #### What is the purpose of a Kalman Filter in AV tracking?
+  - To estimate hidden true states (e.g. position and velocity) by blending predictions from a motion model with noisy sensor measurements.
+- #### What does the state vector [x, y, vx, vy] represent?
+  - The object’s estimated position (x, y) and velocity (vx, vy) at the current time.
+- #### Why do we include velocity in the state even if a camera only measures position?
+  - Because velocity can be inferred from changes in position over time, enabling smoother and more accurate predictions.
+- #### What does the F matrix do?
+  - It projects the previous state forward in time using the motion model (e.g. constant velocity: position = position + velocity·Δt).
+- #### What does the H matrix do?
+  - It maps the full state into the measurement space - selecting which elements of the state the sensor can actually observe.
+- #### What does the R matrix represent?
+  - Measurement noise covariance: how noisy or uncertain the sensor readings are.
+- #### What does the Q matrix represent?
+  - Process noise covariance: uncertainty in the prediction due to unmodeled accelerations or dynamics.
+- #### What does the P matrix represent?
+  - State covariance: the current confidence in the state estimate; larger values mean more uncertainty.
+- #### What happens if R is increased?
+  - The filter trusts measurements less and leans more on predictions, giving smoother but slower response.
+- #### What happens if Q is increased?
+  - The filter trusts predictions less and adapts more quickly to sensor measurements, allowing for maneuvering but more jitter.
+- #### What is the innovation (residual)?
+  - The difference between the actual measurement and the predicted measurement: y = z – Hx.
+- #### What does the innovation covariance S represent?
+  - The expected uncertainty of the innovation, combining prediction uncertainty and measurement noise (S = HPHᵀ + R).
+- #### What is the Kalman gain K?
+  - A weighting factor that decides how much to lean towards the measurement versus the prediction.
+- #### What happens if K is very small?
+  - The filter trusts predictions much more than measurements, which may happen if measurements are very noisy or failing.
+- #### What happens if K is very large?
+  - The filter trusts measurements strongly, updating the state heavily each tick.
+- #### What is the gating step with NIS?
+  - Normalized Innovation Squared checks if a measurement is consistent with the prediction given expected uncertainty; if NIS > threshold, reject the measurement.
+- #### What does a high NIS value mean?
+  - The measurement is far from what was predicted relative to expected noise → likely an outlier or false detection.
+- #### What does a very low NIS value mean?
+  - The residuals are smaller than expected → may indicate R is set too high (overestimating sensor noise).
+- #### What’s an example gating threshold for 2D position?
+  - Around 9.21 (95% confidence level for χ² with 2 degrees of freedom).
+- #### How is radar different from camera in KF measurements?
+  - Radar provides range and radial velocity directly, while a monocular camera typically only provides bearing/position information.
+- #### What role does Q play if the vehicle brakes or accelerates?
+  - Q accounts for unmodeled acceleration; a higher Q allows the filter to adjust faster when the motion deviates from constant velocity.
+- #### What is initial covariance P₀ used for?
+  - It encodes initial uncertainty in the state; position variance reflects sensor noise, velocity variance is often large if unknown.
+
