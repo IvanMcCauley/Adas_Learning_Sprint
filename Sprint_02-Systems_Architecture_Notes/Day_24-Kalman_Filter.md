@@ -1,9 +1,8 @@
-# Day 24 - 
+# Day 24 - Kalman_Filter
 
 ---
 
-# Kalman Filter
-- We want the best current guess of an object’s **state** (e.g., position & velocity) using:
+- Want the best current guess of an object’s **state** (e.g., position & velocity) using:
   - a **prediction** (physics: how things move), and
   - a **measurement** (sensor: what we observed),
 - …and we **weight** them by how **trustworthy** they are.
