@@ -184,7 +184,7 @@ VOLATILE = no history for late joiners.
 - #### Planning → Control QoS (typical)?
   - `RELIABLE, VOLATILE, KEEP_LAST 2–5`, `deadline 60–80 ms`, `lifespan ~150 ms`. Keep only the latest trajectories; drop anything late.
  
-## Day 23 - Kalman Filters
+## Day 24 - Kalman Filters
 - #### What is the purpose of a Kalman Filter in AV tracking?
   - To estimate hidden true states (e.g. position and velocity) by blending predictions from a motion model with noisy sensor measurements.
 - #### What does the state vector [x, y, vx, vy] represent?
