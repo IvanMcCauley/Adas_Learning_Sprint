@@ -164,12 +164,16 @@ make
 - Recorded + replayed `/chatter` and proved the publisher was `/rosbag2_play…` - finally “get” QoS compatability and bag replay (also learned the bash `|`/`grep`/`||` basics).
 - Wrote personal study notes in [Sprint_02-Systems_Architecture_Notes](https://github.com/IvanMcCauley/Adas_Learning_Sprint/tree/main/Sprint_02-Systems_Architecture_Notes) folder.
 
+---
+
 ## Day 21 - ROS 2 Python node + QoS/params/launch
 - Created ament_python pkg `planning101`; wrote `qos_probe` subscriber to `/chatter` with QoS from params (CLI wins over YAML).
 - Fixed `setup.py` (`console_scripts` + `data_files`) so launch/params install under `share/…`; built with `--symlink-install` and ran via `ros2 run` + `ros2 launch`.
 - Verified endpoint QoS with `ros2 topic info -v`.
 - Learned `super().\__init__`, `self`, callbacks, `create_subscription(type, topic, callback, qos)` and why QoS mismatch = no messages.
 - Wrote personal study notes in [Sprint_02-Systems_Architecture_Notes](https://github.com/IvanMcCauley/Adas_Learning_Sprint/tree/main/Sprint_02-Systems_Architecture_Notes) folder.
+
+---
 
 ## Day 22 - Timing: latency vs period jitter
 - Added `pinger` that stamps `Header` on `/ping`; `qos_probe` computes E2E latency (`now` - `msg.stamp`) and sliding-window mean/max.
@@ -179,9 +183,18 @@ make
 - Now solid on timers, age-of-info vs jitter, and how to read QoS per endpoint.
 - Wrote personal study notes in [Sprint_02-Systems_Architecture_Notes](https://github.com/IvanMcCauley/Adas_Learning_Sprint/tree/main/Sprint_02-Systems_Architecture_Notes) folder.
 
+---
+
 ## Day 23 - ADAS fundamentals overview and sensor suite + full stack timing
 - Reviewed ADAS fundamentals again and quick sensor overview (advantages, limitations, why sensor fusion?)
 - Mapped the full AV pipeline (sensors → perception → localization → fusion → planning → control) and wrote concrete topic/QoS profiles (reliability, durability, depth, deadlines, lifespan). 
 - Locked core concepts - covariance, data association, UKF/JPDA, ego state—and clarified TF `odom→base_link`.
 - Built a first latency plan (target ~50 ms sensor→command) and practiced “freshness” thinking: small queues, lifespan, deadlines, and drop-stale guards.
+- Wrote personal study notes in [Sprint_02-Systems_Architecture_Notes](https://github.com/IvanMcCauley/Adas_Learning_Sprint/tree/main/Sprint_02-Systems_Architecture_Notes) folder.
+
+## Day 24 - Kalman Filter Introduction
+- Focused on solidifying Kalman filter basics - understanding how prediction and update balance trust between model and sensors, what Q and R represent, and how velocity is inferred even when only positions are measured.
+- Ran through small examples and built confidence with the intuition behind F, H, and the innovation.
+- Feels like I’ve got a much clearer picture of how a tracker would actually work in practice.
+- Still need to go deeper into the matrix multiplication math during the update stage (why inverses and transposes are used in certain steps)
 - Wrote personal study notes in [Sprint_02-Systems_Architecture_Notes](https://github.com/IvanMcCauley/Adas_Learning_Sprint/tree/main/Sprint_02-Systems_Architecture_Notes) folder.
