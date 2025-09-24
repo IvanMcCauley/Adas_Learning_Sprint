@@ -1,4 +1,4 @@
-# Day 25 - Sensor Fusion
+# Day 25/26 - Sensor Fusion
 
 ## Big-Picture Overview (what “sensor fusion” means)
 - **Goal:** Build a coherent, timely, uncertainty-aware world model from multiple imperfect sensors.
