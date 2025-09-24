@@ -135,6 +135,8 @@ make
 - Debugged executor crash (spun class not instance).
 - First stop test: `/brake_cmd=True` -> stop ≈2.2 s, margin ≈57 m.
 
+---
+
 ## Day 17 - Closed Loop + Plot
 - Sim now publishes `/ego_speed` + `/obstacle_distance`.
 - C++ node subscribes + publishes `/brake_cmd`.
@@ -142,12 +144,16 @@ make
 - Observed chatter near threshold.
 - Example result: SUCCESS at 8.5 s, margin ≈0.67 m.
 
+--- 
+
 ## Day 18 - CSV → MP4 Visualizer
 - Rendered sim CSV:
   - Left: car vs wall + brake light.
   - Right: v(t)/d(t) + moving cursor.
 - Learned Matplotlib basics: GridSpec, axvline, ffmpeg writer.
 - Installed ffmpeg to export MP4.
+
+---
 
 ## Day 19 - Video Polish
 - Added title, decision badge, Topics+Params block.
@@ -192,9 +198,20 @@ make
 - Built a first latency plan (target ~50 ms sensor→command) and practiced “freshness” thinking: small queues, lifespan, deadlines, and drop-stale guards.
 - Wrote personal study notes in [Sprint_02-Systems_Architecture_Notes](https://github.com/IvanMcCauley/Adas_Learning_Sprint/tree/main/Sprint_02-Systems_Architecture_Notes) folder.
 
+---
+
 ## Day 24 - Kalman Filter Introduction
 - Focused on solidifying Kalman filter basics - understanding how prediction and update balance trust between model and sensors, what Q and R represent, and how velocity is inferred even when only positions are measured.
 - Ran through small examples and built confidence with the intuition behind F, H, and the innovation.
 - Feels like I’ve got a much clearer picture of how a tracker would actually work in practice.
 - Still need to go deeper into the matrix multiplication math during the update stage (why inverses and transposes are used in certain steps)
+- Wrote personal study notes in [Sprint_02-Systems_Architecture_Notes](https://github.com/IvanMcCauley/Adas_Learning_Sprint/tree/main/Sprint_02-Systems_Architecture_Notes) folder.
+
+---
+
+## Day 25/26 - Sensor Fusion
+- Big-picture of fusion: time/frames, KF blocks, planner contract.
+- Async loop clicked: predict → NIS gate → update → t_state = t_meas.
+- NN association basics: gate each, pick min Mahalanobis, update once.
+- Metrics to watch: gated_out%, assoc_none%, coast_rate%, oosm/stale drops, age_ms p50/p95, avg dt_predict_ms.
 - Wrote personal study notes in [Sprint_02-Systems_Architecture_Notes](https://github.com/IvanMcCauley/Adas_Learning_Sprint/tree/main/Sprint_02-Systems_Architecture_Notes) folder.
