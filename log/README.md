@@ -88,7 +88,7 @@ make
 
 ---
 
-## Day 11 — ROS 2 Setup
+## Day 11 - ROS 2 Setup
 - Installed ROS 2 Humble (ros-base) on WSL2.
 - Created `~/ros2_ws`, scaffolded first package (`ros2_brake_decider`).
 - Verified build/discovery with `ros2 pkg list`.
@@ -194,7 +194,7 @@ make
 ## Day 23 - ADAS fundamentals overview and sensor suite + full stack timing
 - Reviewed ADAS fundamentals again and quick sensor overview (advantages, limitations, why sensor fusion?)
 - Mapped the full AV pipeline (sensors → perception → localization → fusion → planning → control) and wrote concrete topic/QoS profiles (reliability, durability, depth, deadlines, lifespan). 
-- Locked core concepts - covariance, data association, UKF/JPDA, ego state—and clarified TF `odom→base_link`.
+- Locked core concepts - covariance, data association, UKF/JPDA, ego state-and clarified TF `odom→base_link`.
 - Built a first latency plan (target ~50 ms sensor→command) and practiced “freshness” thinking: small queues, lifespan, deadlines, and drop-stale guards.
 - Wrote personal study notes in [Sprint_02-Systems_Architecture_Notes](https://github.com/IvanMcCauley/Adas_Learning_Sprint/tree/main/Sprint_02-Systems_Architecture_Notes) folder.
 
