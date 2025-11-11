@@ -54,4 +54,38 @@ Once that pipeline was complete, the sprint shifted into **Stage 2** - developin
 
 ---
 
+## 🗂️ Structure
+```
+Adas_Learning_Sprint/
+├── Phase1/ # C++ & math/physics phase (Days 1–5)
+│ ├── day3_cpp/, day4_cpp/, ... # Hands-on C++ exercises and braking logic
+│ ├── Math_Notes.md # Calculus and control refresh
+│ ├── Physics_Notes.md # Vehicle dynamics and motion equations
+│ └── Dev_Commands.md # Common commands I used
+│
+├── Sprint_02-Systems_Architecture_Notes/ # Systems & ADAS phase (Days 20–26)
+│ ├── Systems_Architecture_Notes.md # Detailed personal daily study notes (QoS, latency, fusion etc)
+│ ├── Personal_Q&A.md # Reflection questions and answers for each topic
+│ └── code/ # Small ROS 2 + Python experiments
+│
+├── README.md # Main project overview (this file)
+├── LICENSE # MIT license
+└── log/ # Archived day-by-day notes (merged into log/README.md)
+```
+- Code files for the three stage braking-decision project are in repositories linked below.
+
+
+---
+
+## 🧩 Related Repositories
+| Stage | Repository | Description |
+|:------|:------------|:-------------|
+| 1 | [braking_decision_lib](https://github.com/IvanMcCauley/braking_decision_lib) | C++17 stopping-distance library + CLI/tests |
+| 2 | [ros2_brake_decider](https://github.com/IvanMcCauley/ros2_brake_decider) | ROS 2 node performing real-time brake decisions |
+| 3 | [ros2_brake_validation_sim](https://github.com/IvanMcCauley/ros2_brake_validation_sim) | Python simulation and MP4 visualization of closed-loop behavior |
+
+---
+
+### 🔗 Context
+This sprint forms part of my broader path toward **ADAS / Autonomous Systems Engineering**, focused on bridging **Perception ↔ Planning ↔ Control** through robust, timing-aware system integration.
 
