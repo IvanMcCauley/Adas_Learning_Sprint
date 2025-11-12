@@ -3,6 +3,7 @@
 ### A 4-week deep-dive into the foundations of modern autonomous driving systems  
 From physics and C++ to ROS 2 integration, latency analysis, and sensor fusion theory.
 I’m keeping this public mainly for myself (to revisit later) and for people who want to see the full learning process.
+
 ---
 
 ## 🧭 Overview
